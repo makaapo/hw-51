@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Ball from './components/Ball/Ball';
 import './App.css';
 
 const initialNumbers: number[] = [5, 11, 16, 23, 32];
@@ -18,14 +19,22 @@ const generateNumbers = (): number[] => {
     }
     return numbers;
 };
-console.log(initialNumbers)
-console.log(generateNumbers())
 
 const App: React.FC = () => {
+    const [numbers, setNumbers] = useState<number[]>(initialNumbers);
+
+    const handleNewNumbers = (): void => {
+        setNumbers(generateNumbers());
+    };
 
     return (
         <div className="App">
-
+            <div className="balls">
+                {numbers.map((number) => (
+                    <Ball key={number} number={number} />
+                ))}
+            </div>
+            <button onClick={handleNewNumbers}>New numbers</button>
         </div>
     );
 };
